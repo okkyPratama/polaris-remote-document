@@ -1,0 +1,26 @@
+meta {
+  name: Get User Warehouses
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{local}}/admin/user-warehouses/getAll
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "userId": "{{user_id}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

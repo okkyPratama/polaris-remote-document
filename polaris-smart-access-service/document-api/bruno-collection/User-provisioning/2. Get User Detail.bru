@@ -1,0 +1,26 @@
+meta {
+  name: 2. Get User Detail
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{local}}/admin/users/detailById
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "019f4b58-5757-76c9-9151-57da61e45ee1"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

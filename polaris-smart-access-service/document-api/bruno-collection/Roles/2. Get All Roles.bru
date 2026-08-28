@@ -1,0 +1,32 @@
+meta {
+  name: 2. Get All Roles
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{local}}/admin/roles/getAll
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "filters": {},
+      "paging": {
+          "page": 1,
+          "pageSize": 25,
+          "sortBy": "created_at",
+          "sortDirection": "desc"
+      }
+  }
+}
+
+settings {
+  encodeUrl: true
+}

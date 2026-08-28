@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Template Dokumen — Polaris WMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--clr-active:#001871;--clr-label:#1f2b59;--clr-icon:#485885;--clr-placeholder:#949eb8;--clr-inactive:#a9b1c6;--clr-bg:#f1f3f8;--clr-bg-peek:#dee1ed;--clr-bg-soft:#d9dde6;--clr-success:#55bf59;--clr-danger:#ef3340;--clr-warning:#f59e0b;--clr-border:#ebebeb;--clr-white:#fff;--r-sm:6px;--r-md:8px;--r-lg:10px;--r-xl:14px;--r-2xl:16px;--r-pill:9999px;--shadow-xs:0 1px 3px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.03);--font:'Roboto',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:14px;color:var(--clr-label);background:var(--clr-bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+.app{display:flex;height:100vh;overflow:hidden}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="logo-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg></div><div><div class="logo-name">POLARIS</div><div class="logo-sub">WMS</div></div></div>
+  <div class="sidebar-wh"><div class="wh-label">Gudang Aktif</div><div class="wh-code">WH-JKT-01</div><div class="wh-name">Gudang Jakarta Utara</div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-item" onclick="location.href='dashboard.html'">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Beranda
+    </div>
+    <div class="nav-section">Auth &amp; Keamanan</div>
+    <div class="nav-item dim">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Pengguna
+    </div>
+    <div class="nav-item dim">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Peran &amp; Izin
+    </div>
+    <div class="nav-section">Konfigurasi</div>
+    <div class="nav-item dim">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Gudang
+    </div>
+    <div class="nav-item dim">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 0 4.93 19.07M4.93 4.93a10 10 0 0 0 14.14 14.14M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+      Konfigurasi Sistem
+    </div>
+    <div class="nav-item active">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Template Dokumen
+    </div>
+    <div class="nav-section">Master Data</div>
+    <div class="nav-item dim">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      Produk &amp; SKU
+    </div>
+    <div class="nav-item dim">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Mitra Bisnis
+    </div>
+    <div class="nav-item dim">UOM &amp; Packaging</div>
+    <div class="nav-item dim">Atribut Lot</div>
+    <div class="nav-item dim">Barcode Parser</div>
+    <div class="nav-item dim">Spatial Setup</div>
+    <div class="nav-section">Operasi Inbound</div>
+    <div class="nav-item dim">Penerimaan</div>
+    <div class="nav-item dim">Putaway</div>
+    <div class="nav-section">Operasi Outbound</div>
+    <div class="nav-item dim">Surat Jalan</div>
+    <div class="nav-item dim">Pengeluaran</div>
+    <div class="nav-section">Inventori</div>
+    <div class="nav-item dim">Saldo</div>
+    <div class="nav-item dim">Mutasi</div>
+  </nav>
+  <div class="sidebar-footer"><div class="avatar">AD</div><div><div class="footer-name">Admin System</div><div class="footer-role">Entity Admin</div></div></div>
+</aside>
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+<div class="main-scroll">
+
+  <!-- Page Header -->
+  <div>
+    <div class="breadcrumb">Konfigurasi › Template Dokumen</div>
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Template Dokumen &amp; Label</h1>
+        <p class="page-sub">Kelola template untuk GRN, GIN, label, dan laporan — tetapkan per owner</p>
+      </div>
+      <button class="btn btn-primary" onclick="showUpload()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Unggah Template
+      </button>
+    </div>
+  </div>
+
+  <!-- Type Filter Tabs -->
+  <div class="filter-card">
+    <div class="role-tabs" id="typeTabs">
+      <button class="role-tab active" data-type="ALL" onclick="setType(this)">Semua <span class="tab-count" id="allCount">8</span></button>
+      <button class="role-tab" data-type="GRN" onclick="setType(this)">GRN</button>
+      <button class="role-tab" data-type="GIN" onclick="setType(this)">GIN</button>
+      <button class="role-tab" data-type="LPN_LABEL" onclick="setType(this)">Label LPN</button>
+      <button class="role-tab" data-type="PUTAWAY_LABEL" onclick="setType(this)">Label Putaway</button>
+      <button class="role-tab" data-type="SHIPMENT_LABEL" onclick="setType(this)">Label Pengiriman</button>
+      <button class="role-tab" data-type="INVENTORY_REPORT" onclick="setType(this)">Laporan Inventori</button>
+    </div>
+    <div class="filter-row">
+      <div class="search-wrap">
+        <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#949eb8" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input class="input-search" id="searchInput" placeholder="Cari nama atau kode template..." oninput="onSearch()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Content: Master-Detail -->
+  <div class="content-area">
+    <!-- Template List -->
+    <div class="grid-card full">
+      <table class="data-table">
+        <thead><tr>
+          <th>Template</th>
+          <th>Tipe</th>
+          <th>Format</th>
+          <th>Versi</th>
+          <th>Ditugaskan Ke</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="table-footer"><span class="table-footer-text" id="footerCount">8 template</span></div>
+    </div>
+    <!-- Detail Panel -->
+    <div class="detail-panel" id="detailPanel">
+      <button class="panel-close" onclick="closePanel()">×</button>
+      <div class="panel-code" id="dCode">—</div>
+      <div class="panel-title" id="dName">—</div>
+      <div class="panel-subtitle" id="dBadges"></div>
+
+      <!-- Info Section -->
+      <div class="panel-section">
+        <div class="panel-section-label">Info Template</div>
+        <div class="field-grid">
+          <div class="field-row"><span class="field-lbl">Tipe</span><span class="field-val" id="dType">—</span></div>
+          <div class="field-row"><span class="field-lbl">Format Keluaran</span><span class="field-val" id="dFormat">—</span></div>
+          <div class="field-row"><span class="field-lbl">Versi</span><span class="field-val mono" id="dVersion">—</span></div>
+          <div class="field-row"><span class="field-lbl">Default Sistem</span><span class="field-val" id="dIsDefault">—</span></div>
+          <div class="field-row"><span class="field-lbl">Dibuat</span><span class="field-val" id="dCreated">—</span></div>
+          <div class="field-row"><span class="field-lbl">Terakhir Diubah</span><span class="field-val" id="dModified">—</span></div>
+        </div>
+      </div>
+
+      <!-- Owner Assignment -->
+      <div class="panel-section">
+        <div class="panel-section-label">Penugasan Owner</div>
+        <div class="assign-list" id="dAssignList"></div>
+        <button class="btn btn-secondary" style="margin-top:8px;font-size:11px;padding:5px 12px">+ Tugaskan ke Owner</button>
+      </div>
+
+      <!-- Template Preview (code snippet) -->
+      <div class="panel-section">
+        <div class="panel-section-label">Sumber Template (Preview)</div>
+        <div class="code-preview" id="dSource"></div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn btn-secondary" style="font-size:11px;padding:5px 12px" id="dEditBtn">Edit Sumber</button>
+          <button class="btn btn-secondary" style="font-size:11px;padding:5px 12px" onclick="showPreview()">Preview dengan Data Contoh</button>
+        </div>
+      </div>
+
+      <!-- Version History -->
+      <div class="panel-section">
+        <div class="panel-section-label">Riwayat Versi</div>
+        <div class="version-list" id="dVersionList"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="panel-actions">
+        <button class="btn btn-secondary">Duplikat</button>
+        <button class="btn btn-secondary" style="color:var(--clr-danger)">Nonaktifkan</button>
+      </div>
+    </div>
+  </div><!-- /content-area -->
+</div><!-- /main-scroll -->
+</main>
+
+<!-- ═══ PREVIEW MODAL (Split View: JSON + Rendered Output) ═══ -->
+<div class="create-overlay" id="previewOverlay" style="display:none">
+  <div class="preview-panel">
+    <div class="preview-header">
+      <span class="preview-title">Preview Template</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn btn-secondary" style="font-size:12px;padding:5px 12px">⬇ Unduh</button>
+        <button class="btn btn-primary" style="font-size:12px;padding:5px 12px">🖨 Cetak</button>
+        <button style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--clr-inactive);margin-left:8px" onclick="hidePreview()">✕</button>
+      </div>
+    </div>
+    <div class="preview-body">
+      <div class="preview-json">
+        <div class="json-header"><span>Data JSON</span><span style="color:var(--clr-placeholder);font-size:11px">455/10000</span></div>
+        <textarea class="json-editor" rows="20">{
+  "owner_name": "Toko Jaya Makmur",
+  "alamat_pengirim": "Jl. Mangga Dua Raya No. 45, Jakarta Utara 14430",
+  "nama_penerima": "Budi Santoso",
+  "alamat_penerima": "Jl. Sudirman No. 123, RT 05/RW 02, Kel. Menteng, Kec. Menteng, Jakarta Pusat 10310",
+  "telp_penerima": "0812-3456-7890",
+  "nomor_resi": "JNE0123456789012",
+  "isi_paket": "Sepatu Sneakers (1 pasang)",
+  "berat": "1.2 kg",
+  "layanan": "REG"
+}</textarea>
+      </div>
+      <div class="preview-render">
+        <div class="render-toolbar">
+          <span style="font-size:11px;color:var(--clr-placeholder)">Halaman:</span>
+          <input style="width:30px;text-align:center;border:1px solid var(--clr-border);border-radius:4px;font-size:11px;padding:2px" value="1">
+          <span style="font-size:11px;color:var(--clr-placeholder)">dari 1</span>
+          <span style="flex:1"></span>
+          <button class="render-tb-btn">🔍</button>
+        </div>
+        <div class="render-canvas">
+          <div class="rendered-doc">
+            <div style="font-weight:700;font-size:15px;text-align:center;border-bottom:2px solid #333;padding-bottom:8px;margin-bottom:12px">PT. TOKO JAYA MAKMUR</div>
+            <div style="margin-bottom:8px"><div style="font-weight:600;font-size:10px;color:#666">Pengirim:</div><div style="font-weight:600;margin-top:2px">Toko Jaya Makmur</div><div style="font-size:11px;color:#444">Jl. Mangga Dua Raya No. 45, Jakarta Utara 14430</div></div>
+            <div style="margin-bottom:8px;border-top:1px solid #ddd;padding-top:6px"><div style="font-weight:600;font-size:10px;color:#666">Penerima:</div><div style="font-weight:700;margin-top:2px">Budi Santoso</div><div style="font-size:11px;color:#444">Jl. Sudirman No. 123, RT 05/RW 02, Kel. Menteng, Kec. Menteng, Jakarta Pusat 10310</div><div style="font-size:11px;color:#444;margin-top:2px">0812-3456-7890</div></div>
+            <div style="text-align:center;margin:12px 0;padding:10px;border:1px solid #ddd;border-radius:4px"><div style="font-family:monospace;font-size:24px;letter-spacing:1px">║│║║│║║│║║│║║│║║│║║│║║│</div><div style="font-size:11px;font-family:monospace;margin-top:4px">JNE0123456789012</div></div>
+            <div style="border-top:1px solid #ddd;padding-top:6px;font-size:11px;display:flex;flex-direction:column;gap:3px"><div><strong>Isi:</strong> Sepatu Sneakers (1 pasang)</div><div style="display:flex;gap:30px"><span><strong>Berat:</strong> 1.2 kg</span><span><strong>Layanan:</strong> REG</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ UPLOAD MODAL ═══ -->
+<div class="create-overlay" id="uploadOverlay" style="display:none">
+  <div class="create-panel">
+    <button class="panel-close" onclick="hideUpload()">×</button>
+    <div class="form-title">Unggah Template Baru</div>
+    <div class="form-subtitle">Kode template akan dibuat otomatis dari nama. Gunakan sintaks {{placeholder}}.</div>
+    <div class="form-fields">
+      <div class="form-group">
+        <label class="form-lbl">Nama Template <span class="req">*</span></label>
+        <input class="form-input" placeholder="mis. GRN Unilever Branded v1">
+      </div>
+      <div style="display:flex;gap:10px">
+        <div class="form-group" style="flex:1">
+          <label class="form-lbl">Tipe Template <span class="req">*</span></label>
+          <select class="form-select">
+            <option value="">— Pilih tipe —</option>
+            <option>GRN (Goods Receipt Note)</option>
+            <option>GIN (Goods Issue Note)</option>
+            <option>Label LPN</option>
+            <option>Label Putaway</option>
+            <option>Label Pengiriman</option>
+            <option>Laporan Inventori</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1">
+          <label class="form-lbl">Format Keluaran <span class="req">*</span></label>
+          <select class="form-select">
+            <option value="">— Pilih —</option>
+            <option>PDF (sumber HTML)</option>
+            <option>ZPL (printer label)</option>
+            <option>Excel (XLSX)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-lbl">Deskripsi</label>
+        <input class="form-input" placeholder="Deskripsi singkat varian template ini">
+      </div>
+      <div class="form-group">
+        <label class="form-lbl">Sumber Template <span class="req">*</span></label>
+        <div class="code-editor">
+          <textarea class="code-textarea" rows="12" placeholder="Tempel HTML (untuk PDF), kode ZPL (untuk label), atau XML XLSX di sini...
+
+Contoh GRN (HTML):
+<div class='grn-header'>
+  <h1>{{entity.name}}</h1>
+  <h2>Goods Receipt Note</h2>
+  <p>No: {{receipt.receipt_number}}</p>
+  <p>Date: {{receipt.date | date:DD-MM-YYYY}}</p>
+</div>
+{{#each receipt.lines}}
+<tr>
+  <td>{{line.sku_code}}</td>
+  <td>{{line.qty}} {{line.uom}}</td>
+</tr>
+{{/each}}"></textarea>
+          <div class="code-hint">
+            <span>Placeholder yang tersedia:</span>
+            <code>{{receipt.*}}</code> <code>{{owner.*}}</code> <code>{{warehouse.*}}</code>
+            <code>{{line.*}}</code> <code>{{lpn.*}}</code>
+            <a href="#" style="margin-left:8px;color:var(--clr-active);font-size:10px">Lihat katalog lengkap →</a>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-lbl">Tugaskan ke Owner</label>
+        <select class="form-select">
+          <option>— Default Sistem (semua owner tanpa template khusus) —</option>
+          <option>Unilever Indonesia</option>
+          <option>Danone Indonesia</option>
+          <option>Nestlé Indonesia</option>
+          <option>Coldspace Indo</option>
+        </select>
+      </div>
+      <div class="form-footer">
+        <button class="btn btn-secondary" onclick="hideUpload()">Batal</button>
+        <button class="btn btn-secondary">Preview</button>
+        <button class="btn btn-primary">Simpan Template</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+<style>
+/* ═══ SIDEBAR ═══ */
+.sidebar{width:240px;background:var(--clr-white);border-right:1px solid var(--clr-border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow:hidden}
+.sidebar-logo{padding:14px 16px;border-bottom:1px solid var(--clr-bg);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{width:28px;height:28px;background:var(--clr-active);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-name{font-size:13px;font-weight:700;color:var(--clr-active);letter-spacing:-.3px}.logo-sub{font-size:9px;color:var(--clr-inactive);letter-spacing:.08em;text-transform:uppercase}
+.sidebar-wh{padding:10px 16px;border-bottom:1px solid var(--clr-bg);background:#fafbfd;flex-shrink:0}
+.wh-label{font-size:9px;font-weight:700;color:var(--clr-inactive);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.wh-code{font-size:12px;font-weight:700;color:var(--clr-active);font-family:var(--mono)}.wh-name{font-size:11px;color:var(--clr-icon)}
+.sidebar-nav{flex:1;padding:10px 8px;overflow-y:auto}
+.nav-section{font-size:9px;font-weight:700;color:var(--clr-inactive);letter-spacing:.1em;text-transform:uppercase;padding:8px 10px 4px;margin-top:4px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r-md);font-size:13px;color:var(--clr-icon);cursor:pointer;margin-bottom:1px;transition:background .12s}
+.nav-item:hover{background:var(--clr-bg)}.nav-item.dim{opacity:.35;cursor:default}.nav-item.active{background:var(--clr-active);color:white;font-weight:600}
+.sidebar-footer{padding:12px 14px;border-top:1px solid var(--clr-bg);display:flex;align-items:center;gap:9px;flex-shrink:0}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--clr-active);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:700}
+.footer-name{font-size:12px;font-weight:600}.footer-role{font-size:10px;color:var(--clr-placeholder)}
+
+/* ═══ MAIN ═══ */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.main-scroll{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:14px}
+.breadcrumb{font-size:11px;color:var(--clr-inactive);margin-bottom:3px}
+.page-header{display:flex;align-items:flex-end;justify-content:space-between}
+.page-title{font-size:18px;font-weight:700;color:var(--clr-active);letter-spacing:-.3px}
+.page-sub{font-size:12px;color:var(--clr-icon);margin-top:2px}
+
+/* ═══ COMPONENTS ═══ */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:var(--r-md);font-size:13px;font-weight:500;font-family:var(--font);cursor:pointer;border:none;white-space:nowrap;transition:opacity .15s,background .15s}
+.btn-primary{background:var(--clr-active);color:white}.btn-primary:hover{background:#00206d}
+.btn-secondary{background:var(--clr-bg);color:var(--clr-label);border:1px solid var(--clr-border)}.btn-secondary:hover{background:var(--clr-bg-soft)}
+.filter-card{background:var(--clr-white);border-radius:var(--r-2xl);overflow:hidden;box-shadow:var(--shadow-xs);flex-shrink:0}
+.role-tabs{display:flex;border-bottom:1px solid var(--clr-border);padding:0 14px;overflow-x:auto}
+.role-tab{padding:10px 14px;font-size:12px;font-family:var(--font);font-weight:400;color:var(--clr-icon);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.role-tab:hover{color:var(--clr-label)}.role-tab.active{color:var(--clr-active);font-weight:600;border-bottom-color:var(--clr-active)}
+.tab-count{font-size:10px;background:var(--clr-bg);padding:1px 6px;border-radius:var(--r-pill);margin-left:4px}
+.filter-row{display:flex;align-items:center;gap:10px;padding:12px 16px}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:320px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none}
+.input-search{width:100%;border:1px solid var(--clr-border);border-radius:var(--r-md);padding:7px 10px 7px 32px;font-size:13px;font-family:var(--font);color:var(--clr-label);background:white;outline:none}
+.input-search:focus{border-color:var(--clr-active);box-shadow:0 0 0 3px rgba(0,24,113,.08)}
+.content-area{display:flex;gap:14px;align-items:flex-start}
+.grid-card{background:var(--clr-white);border-radius:var(--r-2xl);overflow:hidden;box-shadow:var(--shadow-xs);flex-shrink:0}.grid-card.full{flex:1}
+.data-table{width:100%;border-collapse:collapse}
+.data-table thead tr{border-bottom:2px solid var(--clr-bg)}
+.data-table th{padding:11px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--clr-inactive);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;background:#fafbfd}
+.data-table td{padding:11px 16px;border-bottom:1px solid var(--clr-bg);vertical-align:middle;font-size:12px}
+.data-table tbody tr{cursor:pointer;border-left:2px solid transparent;transition:background .1s}
+.data-table tbody tr:hover td{background:rgba(241,243,248,.7)}
+.data-table tbody tr.row-selected{border-left-color:var(--clr-active)}.data-table tbody tr.row-selected td{background:rgba(0,24,113,.04)}
+.table-footer{padding:10px 16px;border-top:1px solid var(--clr-bg);background:#fafbfd;font-size:11px;color:var(--clr-inactive)}
+.tpl-name{font-size:13px;font-weight:500;color:var(--clr-label)}.tpl-code{font-size:10px;font-family:var(--mono);color:var(--clr-placeholder);margin-top:1px}
+</style>
+<style>
+/* ═══ BADGES ═══ */
+.type-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:var(--r-pill);letter-spacing:.03em}
+.tb-grn{background:rgba(0,24,113,.1);color:#001871}.tb-gin{background:rgba(194,82,0,.1);color:#c45200}
+.tb-lpn{background:rgba(30,58,138,.1);color:#1e3a8a}.tb-ship{background:rgba(109,40,217,.1);color:#6d28d9}
+.tb-pta{background:rgba(22,101,52,.1);color:#166534}.tb-rpt{background:rgba(71,85,105,.12);color:#475569}
+.format-badge{font-size:10px;font-weight:500;padding:2px 7px;background:var(--clr-bg);color:var(--clr-icon);border-radius:var(--r-sm)}
+.version-badge{font-size:10px;font-family:var(--mono);padding:2px 7px;background:var(--clr-bg);color:var(--clr-icon);border-radius:var(--r-sm)}
+.assign-badge{font-size:10px;padding:2px 8px;border-radius:var(--r-pill);background:var(--clr-bg);color:var(--clr-icon)}
+.assign-badge.owner{background:rgba(245,158,11,.12);color:#92640a}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}.status-dot.active{background:var(--clr-success)}
+
+/* ═══ DETAIL PANEL ═══ */
+.detail-panel{width:40%;background:var(--clr-white);border-radius:var(--r-2xl);padding:24px;flex-shrink:0;box-shadow:var(--shadow-xs);overflow-y:auto;max-height:calc(100vh - 140px);position:relative;animation:slideIn .2s ease-out}
+@keyframes slideIn{from{opacity:.4;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
+.panel-close{position:absolute;top:14px;right:14px;background:none;border:none;cursor:pointer;color:var(--clr-inactive);width:28px;height:28px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:20px}
+.panel-close:hover{background:var(--clr-bg);color:var(--clr-icon)}
+.panel-code{font-size:11px;font-family:var(--mono);color:var(--clr-inactive);margin-bottom:4px}
+.panel-title{font-size:15px;font-weight:700;color:var(--clr-active);padding-right:28px;margin-bottom:8px}
+.panel-subtitle{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.panel-section{border-top:1px solid var(--clr-bg);padding-top:14px;margin-top:14px}
+.panel-section-label{font-size:10px;font-weight:700;color:var(--clr-inactive);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.field-grid{display:flex;flex-direction:column;gap:6px}
+.field-row{display:grid;grid-template-columns:110px 1fr;gap:6px;align-items:baseline}
+.field-lbl{font-size:12px;color:var(--clr-placeholder)}.field-val{font-size:12px;color:var(--clr-label)}.field-val.mono{font-family:var(--mono);font-weight:500}
+.panel-actions{border-top:1px solid var(--clr-bg);padding-top:14px;display:flex;gap:8px;margin-top:14px}
+
+/* ═══ CODE PREVIEW ═══ */
+.code-preview{font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--clr-icon);background:#1e1e2e;color:#cdd6f4;padding:14px 16px;border-radius:var(--r-md);overflow-x:auto;white-space:pre;max-height:220px;overflow-y:auto}
+
+/* ═══ ASSIGNMENT LIST ═══ */
+.assign-list{display:flex;flex-direction:column;gap:6px}
+.assign-item{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--clr-border);border-radius:var(--r-md);background:#fafbfd}
+.assign-item-name{font-size:12px;font-weight:500;color:var(--clr-label)}.assign-item-since{font-size:10px;color:var(--clr-placeholder)}
+.assign-note{font-size:11px;color:var(--clr-placeholder);margin-top:4px;padding-left:10px}
+
+/* ═══ VERSION LIST ═══ */
+.version-list{display:flex;flex-direction:column;gap:4px}
+.version-item{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:var(--r-sm)}
+.version-item:first-child{background:rgba(0,24,113,.04)}
+.vi-ver{font-size:11px;font-family:var(--mono);font-weight:600;color:var(--clr-active);width:24px}
+.vi-date{font-size:11px;color:var(--clr-placeholder);width:90px}.vi-note{font-size:11px;color:var(--clr-icon);flex:1}
+
+/* ═══ UPLOAD MODAL ═══ */
+.create-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:100;display:flex;align-items:center;justify-content:center}
+.create-panel{background:var(--clr-white);border-radius:var(--r-2xl);padding:28px;width:640px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.form-title{font-size:15px;font-weight:700;color:var(--clr-active);margin-bottom:4px}
+.form-subtitle{font-size:11px;color:var(--clr-icon);margin-bottom:16px}
+.form-fields{display:flex;flex-direction:column;gap:13px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-lbl{font-size:11px;font-weight:500;color:var(--clr-icon)}.form-lbl .req{color:var(--clr-danger)}
+.form-input,.form-select{width:100%;border:1px solid var(--clr-border);border-radius:var(--r-md);padding:7px 11px;font-size:13px;font-family:var(--font);color:var(--clr-label);background:white;outline:none}
+.form-input:focus,.form-select:focus{border-color:var(--clr-active);box-shadow:0 0 0 3px rgba(0,24,113,.08)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23485885' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:32px;cursor:pointer}
+.code-editor{border:1px solid var(--clr-border);border-radius:var(--r-md);overflow:hidden}
+.code-textarea{width:100%;border:none;padding:12px 14px;font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--clr-label);background:#fafbfd;resize:vertical;outline:none}
+.code-hint{padding:8px 14px;background:var(--clr-bg);border-top:1px solid var(--clr-border);font-size:10px;color:var(--clr-placeholder);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.code-hint code{background:rgba(0,24,113,.08);color:var(--clr-active);padding:1px 5px;border-radius:3px;font-size:10px;font-family:var(--mono)}
+.form-footer{display:flex;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid var(--clr-bg)}
+
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--clr-bg-peek);border-radius:4px}
+
+/* ═══ PREVIEW PANEL ═══ */
+.preview-panel{background:var(--clr-white);border-radius:var(--r-2xl);width:90vw;max-width:1100px;height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.2);overflow:hidden}
+.preview-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--clr-border)}
+.preview-title{font-size:14px;font-weight:700;color:var(--clr-active)}
+.preview-body{display:flex;flex:1;overflow:hidden}
+.preview-json{width:280px;border-right:1px solid var(--clr-border);display:flex;flex-direction:column;flex-shrink:0}
+.json-header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#fafbfd;border-bottom:1px solid var(--clr-border);font-size:12px;font-weight:500;color:var(--clr-icon)}
+.json-editor{flex:1;width:100%;border:none;padding:12px;font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--clr-label);background:var(--clr-white);resize:none;outline:none}
+.preview-render{flex:1;display:flex;flex-direction:column;background:#e8e8e8}
+.render-toolbar{display:flex;align-items:center;gap:6px;padding:6px 12px;background:#fafbfd;border-bottom:1px solid var(--clr-border)}
+.render-tb-btn{background:none;border:none;font-size:14px;cursor:pointer;color:var(--clr-icon);padding:2px 4px;border-radius:3px}
+.render-tb-btn:hover{background:var(--clr-bg)}
+.render-canvas{flex:1;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:20px}
+.rendered-doc{background:white;width:380px;min-height:500px;padding:28px 24px;box-shadow:0 2px 12px rgba(0,0,0,.12);border-radius:2px;font-size:12px;line-height:1.5;color:#222}
+</style>
+
+<script>
+const TYPE_META = {
+  GRN:               { label: 'GRN',                 badge: 'tb-grn' },
+  GIN:               { label: 'GIN',                 badge: 'tb-gin' },
+  LPN_LABEL:         { label: 'Label LPN',            badge: 'tb-lpn' },
+  PUTAWAY_LABEL:     { label: 'Label Putaway',        badge: 'tb-pta' },
+  SHIPMENT_LABEL:    { label: 'Label Pengiriman',     badge: 'tb-ship' },
+  INVENTORY_REPORT:  { label: 'Laporan Inventori',    badge: 'tb-rpt' }
+};
+
+const TEMPLATES = [
+  { id: 1, name: 'GRN Default', code: 'system_default_grn', type: 'GRN', format: 'PDF', version: 3,
+    assignedLabel: 'Default Sistem', isOwner: false, status: 'AKTIF',
+    createdInfo: '01 Jun 2026 oleh Admin', modifiedInfo: '28 Jul 2026 oleh Admin',
+    assignments: [{ name: 'Default Sistem (fallback)', since: 'Sejak: 01 Jun 2026' }],
+    assignNote: 'Template ini dipakai untuk semua owner yang belum memiliki template GRN khusus.',
+    source: '<div class="grn-header">\n  <h1>Goods Receipt Note</h1>\n  <p>{{receipt.receipt_number}}</p>\n  <p>Date: {{receipt.date | date:DD-MM-YYYY}}</p>\n  <p>Owner: {{owner.name}}</p>\n  <p>Warehouse: {{warehouse.name}}</p>\n</div>\n<table>\n  {{#each receipt.lines}}\n  <tr>\n    <td>{{line.sku_code}}</td>\n    <td>{{line.qty}} {{line.uom}}</td>\n    <td>{{line.lot_number}}</td>\n  </tr>\n  {{/each}}\n</table>\n<p>TraceID: {{receipt.trace_id | qr}}</p>',
+    history: [
+      { ver: 'v3', date: '28 Jul 2026', note: 'Menambahkan QR code TraceID' },
+      { ver: 'v2', date: '15 Jun 2026', note: 'Menambahkan kolom berat' },
+      { ver: 'v1', date: '01 Jun 2026', note: 'Template awal' }
+    ] },
+  { id: 2, name: 'GRN Unilever Branded', code: 'grn_unilever_v2', type: 'GRN', format: 'PDF', version: 2,
+    assignedLabel: 'Unilever', isOwner: true, status: 'AKTIF',
+    createdInfo: '—', modifiedInfo: '—',
+    assignments: [{ name: 'Unilever Indonesia', since: '—' }],
+    assignNote: 'Template khusus untuk Unilever Indonesia — menggantikan GRN Default untuk owner ini.',
+    source: '<div class="grn-header">\n  <img src="{{owner.logo_url}}" />\n  <h1>Goods Receipt Note</h1>\n  <p>{{receipt.receipt_number}}</p>\n  <p>Owner: {{owner.name}}</p>\n</div>\n<table>\n  {{#each receipt.lines}}\n  <tr>\n    <td>{{line.sku_code}}</td>\n    <td>{{line.qty}} {{line.uom}}</td>\n  </tr>\n  {{/each}}\n</table>',
+    history: [{ ver: 'v2', date: '—', note: 'Versi saat ini' }] },
+  { id: 3, name: 'LPN Label Standard', code: 'system_default_lpn', type: 'LPN_LABEL', format: 'ZPL', version: 1,
+    assignedLabel: 'Default Sistem', isOwner: false, status: 'AKTIF',
+    createdInfo: '—', modifiedInfo: '—',
+    assignments: [{ name: 'Default Sistem (fallback)', since: '—' }],
+    assignNote: 'Template ini dipakai untuk semua owner yang belum memiliki template LPN khusus.',
+    source: '^XA\n^FO20,20^A0N,30,30^FD{{lpn.code}}^FS\n^FO20,60^A0N,20,20^FDSKU: {{line.sku_code}}^FS\n^FO20,90^BY2^BCN,60,Y,N,N^FD{{lpn.code}}^FS\n^XZ',
+    history: [{ ver: 'v1', date: '—', note: 'Versi saat ini' }] },
+  { id: 4, name: 'LPN Label Coldspace (with temp warning)', code: 'lpn_coldspace_frozen', type: 'LPN_LABEL', format: 'ZPL', version: 1,
+    assignedLabel: 'Coldspace', isOwner: true, status: 'AKTIF',
+    createdInfo: '—', modifiedInfo: '—',
+    assignments: [{ name: 'Coldspace Indo', since: '—' }],
+    assignNote: 'Template khusus untuk Coldspace Indo — menambahkan label peringatan suhu beku.',
+    source: '^XA\n^FO20,20^A0N,30,30^FD{{lpn.code}}^FS\n^FO20,60^A0N,20,20^FDSKU: {{line.sku_code}}^FS\n^FO20,90^A0N,18,18^FD⚠ JAGA BEKU -18°C^FS\n^FO20,120^BY2^BCN,60,Y,N,N^FD{{lpn.code}}^FS\n^XZ',
+    history: [{ ver: 'v1', date: '—', note: 'Versi saat ini' }] },
+  { id: 5, name: 'GIN Default', code: 'system_default_gin', type: 'GIN', format: 'PDF', version: 2,
+    assignedLabel: 'Default Sistem', isOwner: false, status: 'AKTIF',
+    createdInfo: '—', modifiedInfo: '—',
+    assignments: [{ name: 'Default Sistem (fallback)', since: '—' }],
+    assignNote: 'Template ini dipakai untuk semua owner yang belum memiliki template GIN khusus.',
+    source: '<div class="gin-header">\n  <h1>Goods Issue Note</h1>\n  <p>{{issue.issue_number}}</p>\n  <p>Date: {{issue.date | date:DD-MM-YYYY}}</p>\n  <p>Owner: {{owner.name}}</p>\n  <p>Warehouse: {{warehouse.name}}</p>\n</div>\n<table>\n  {{#each issue.lines}}\n  <tr>\n    <td>{{line.sku_code}}</td>\n    <td>{{line.qty}} {{line.uom}}</td>\n  </tr>\n  {{/each}}\n</table>',
+    history: [{ ver: 'v2', date: '—', note: 'Versi saat ini' }] },
+  { id: 6, name: 'Shipment Label JNE', code: 'ship_jne_standard', type: 'SHIPMENT_LABEL', format: 'ZPL', version: 1,
+    assignedLabel: 'Semua Owner', isOwner: true, status: 'AKTIF',
+    createdInfo: '—', modifiedInfo: '—',
+    assignments: [{ name: 'Semua Owner (ekspedisi JNE)', since: '—' }],
+    assignNote: 'Dipakai untuk semua pengiriman yang menggunakan ekspedisi JNE.',
+    source: '^XA\n^FO20,20^A0N,24,24^FDPengirim: {{owner.name}}^FS\n^FO20,60^A0N,28,28^FD{{shipment.receiver_name}}^FS\n^FO20,100^A0N,20,20^FD{{shipment.receiver_address}}^FS\n^FO20,140^BY2^BCN,60,Y,N,N^FD{{shipment.tracking_number}}^FS\n^XZ',
+    history: [{ ver: 'v1', date: '—', note: 'Versi saat ini' }] },
+  { id: 7, name: 'Putaway Label Standard', code: 'system_default_putaway', type: 'PUTAWAY_LABEL', format: 'ZPL', version: 1,
+    assignedLabel: 'Default Sistem', isOwner: false, status: 'AKTIF',
+    createdInfo: '—', modifiedInfo: '—',
+    assignments: [{ name: 'Default Sistem (fallback)', since: '—' }],
+    assignNote: 'Template ini dipakai untuk semua owner yang belum memiliki template putaway khusus.',
+    source: '^XA\n^FO20,20^A0N,26,26^FDPutaway: {{task.location_code}}^FS\n^FO20,60^BY2^BCN,60,Y,N,N^FD{{lpn.code}}^FS\n^XZ',
+    history: [{ ver: 'v1', date: '—', note: 'Versi saat ini' }] },
+  { id: 8, name: 'Inventory Report Monthly', code: 'report_inv_monthly', type: 'INVENTORY_REPORT', format: 'Excel', version: 1,
+    assignedLabel: 'Default Sistem', isOwner: false, status: 'AKTIF',
+    createdInfo: '—', modifiedInfo: '—',
+    assignments: [{ name: 'Default Sistem (fallback)', since: '—' }],
+    assignNote: 'Template ini dipakai untuk semua owner yang belum memiliki template laporan khusus.',
+    source: 'Sheet: Inventory Summary\nKolom: {{sku.code}} | {{sku.name}} | {{lot.number}} | {{qty.on_hand}} | {{qty.available}} | {{warehouse.name}}\nFilter periode: {{report.period_start}} – {{report.period_end}}',
+    history: [{ ver: 'v1', date: '—', note: 'Versi saat ini' }] }
+];
+
+let typeFilter = 'ALL';
+let selectedId = 1;
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function filtered() {
+  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  return TEMPLATES.filter(t => {
+    const mt = typeFilter === 'ALL' || t.type === typeFilter;
+    const mq = !q || t.name.toLowerCase().includes(q) || t.code.toLowerCase().includes(q);
+    return mt && mq;
+  });
+}
+
+function renderTable() {
+  const rows = filtered();
+  document.getElementById('tableBody').innerHTML = rows.map(t => `
+    <tr class="${t.id === selectedId ? 'row-selected' : ''}" onclick="selectTpl(${t.id})">
+      <td><div class="tpl-name">${esc(t.name)}</div><div class="tpl-code">${esc(t.code)}</div></td>
+      <td><span class="type-badge ${TYPE_META[t.type].badge}">${TYPE_META[t.type].label}</span></td>
+      <td>${esc(t.format)}</td>
+      <td style="font-family:var(--mono);font-size:12px">v${t.version}</td>
+      <td><span class="assign-badge${t.isOwner ? ' owner' : ''}">${esc(t.assignedLabel)}</span></td>
+      <td><span class="status-dot active"></span> Aktif</td>
+    </tr>`).join('');
+  document.getElementById('footerCount').textContent = rows.length + ' dari ' + TEMPLATES.length + ' template';
+  if (!rows.some(t => t.id === selectedId)) {
+    document.getElementById('detailPanel').style.display = 'none';
+  }
+}
+
+function renderDetail(t) {
+  document.getElementById('detailPanel').style.display = '';
+  document.getElementById('dCode').textContent = t.code;
+  document.getElementById('dName').textContent = t.name;
+  document.getElementById('dBadges').innerHTML =
+    `<span class="type-badge ${TYPE_META[t.type].badge}">${TYPE_META[t.type].label}</span>
+     <span class="format-badge">${esc(t.format)}</span>
+     <span class="version-badge">v${t.version}</span>`;
+  document.getElementById('dType').textContent = TYPE_META[t.type].label;
+  document.getElementById('dFormat').textContent = t.format;
+  document.getElementById('dVersion').textContent = t.version + ' (saat ini)';
+  document.getElementById('dIsDefault').innerHTML = t.isOwner
+    ? 'Tidak'
+    : '<span class="status-dot active"></span> Ya';
+  document.getElementById('dCreated').textContent = t.createdInfo;
+  document.getElementById('dModified').textContent = t.modifiedInfo;
+  document.getElementById('dAssignList').innerHTML = t.assignments.map(a =>
+    `<div class="assign-item"><span class="assign-item-name">${esc(a.name)}</span><span class="assign-item-since">${esc(a.since)}</span></div>`
+  ).join('') + `<div class="assign-note">${esc(t.assignNote)}</div>`;
+  document.getElementById('dSource').textContent = t.source;
+  document.getElementById('dVersionList').innerHTML = t.history.map((h, i) =>
+    `<div class="version-item"${i === 0 ? ' style="background:rgba(0,24,113,.04)"' : ''}><span class="vi-ver">${esc(h.ver)}</span><span class="vi-date">${esc(h.date)}</span><span class="vi-note">${esc(h.note)}</span></div>`
+  ).join('');
+  const params = new URLSearchParams({
+    id: t.id, name: t.name, code: t.code, type: t.type, format: t.format, version: t.version
+  });
+  document.getElementById('dEditBtn').onclick = () => location.href = 'template-editor.html?' + params.toString();
+}
+
+function selectTpl(id) {
+  const t = TEMPLATES.find(x => x.id === id);
+  if (!t) return;
+  selectedId = id;
+  renderTable();
+  renderDetail(t);
+}
+
+function setType(el) {
+  document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  typeFilter = el.dataset.type;
+  renderTable();
+}
+
+function onSearch() { renderTable(); }
+
+function showUpload(){document.getElementById('uploadOverlay').style.display='flex'}
+function hideUpload(){document.getElementById('uploadOverlay').style.display='none'}
+function showPreview(){document.getElementById('previewOverlay').style.display='flex'}
+function hidePreview(){document.getElementById('previewOverlay').style.display='none'}
+function closePanel(){document.getElementById('detailPanel').style.display='none';selectedId=null;renderTable()}
+
+renderTable();
+const initialId = parseInt(new URLSearchParams(location.search).get('id'), 10);
+selectTpl(TEMPLATES.some(t => t.id === initialId) ? initialId : 1);
+</script>
+</body>
+</html>

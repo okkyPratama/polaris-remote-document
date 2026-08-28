@@ -1,0 +1,70 @@
+meta {
+  name: 8. Toggle Active
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{local}}/admin/role-apis/toggleActive
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": "{{roleApiId}}",
+    "isActive": false
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Toggle Active Status
+  
+  Enable or disable a role-to-endpoint mapping without deleting it.
+  
+  ### Request Body:
+  - `id`: (required) UUID of the mapping
+  - `isActive`: (required) true to enable, false to disable
+  
+  ### Important Notes:
+  - This is a quick way to temporarily enable/disable access
+  - Unlike delete, this doesn't mark the record as deleted
+  - Can be toggled back and forth multiple times
+  - After toggling, API permission cache is automatically refreshed
+  - Changes take effect immediately
+  
+  ### Use Cases:
+  - Temporarily disable access during maintenance
+  - Enable/disable access for testing
+  - Quick access control without deleting the configuration
+  
+  ### Example Scenarios:
+  
+  **Disable access temporarily:**
+  ```json
+  {
+    "id": "019abcde-1234-5678-9abc-def012345678",
+    "isActive": false
+  }
+  ```
+  → Users with this role will get 403 Forbidden
+  
+  **Re-enable access:**
+  ```json
+  {
+    "id": "019abcde-1234-5678-9abc-def012345678",
+    "isActive": true
+  }
+  ```
+  → Access is restored immediately
+}

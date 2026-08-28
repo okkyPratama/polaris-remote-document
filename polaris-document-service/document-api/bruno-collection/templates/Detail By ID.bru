@@ -1,0 +1,31 @@
+meta {
+  name: Detail By ID
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/v1/templates/detailById
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": "01a01801-a470-766d-adab-ed611975b957"
+  }
+  
+}
+
+vars:pre-request {
+  templateId: <ganti-dengan-id-template>
+}
+
+docs {
+  Mengambil detail template berdasarkan ID.
+  Mengembalikan template lengkap termasuk templateContent dan pageSettingsJson.
+}

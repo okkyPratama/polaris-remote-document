@@ -1,0 +1,91 @@
+meta {
+  name: 2. Get By Role Name
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{local}}/admin/role-apis/getByRoleName
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "roleName": "SUPERVISOR"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Get Endpoints by Role Name (QA Inspection)
+  
+  Endpoint ini untuk QA melihat detail semua endpoint yang dikonfigurasi untuk role tertentu.
+  
+  ### Request Body:
+  - `roleName`: (required) Code role yang mau dicek (SUPERVISOR, MANAGER, OPERATOR, dll)
+  
+  ### Response Fields:
+  - `id`: ID mapping
+  - `roleName`: Role name
+  - `serviceName`: Service yang handle endpoint (master-data, inventory, smart-access)
+  - `httpMethod`: HTTP method (POST, GET, dll)
+  - `httpEndpoint`: Full endpoint path
+  - `description`: Deskripsi fungsi endpoint
+  - `isActive`: true = aktif, false = non-aktif
+  
+  ### Use Case:
+  - QA check endpoint mana saja yang accessible oleh role tertentu
+  - Validasi apakah endpoint yang di-test sudah dikonfigurasi
+  - Compare dengan requirement: role SUPERVISOR harusnya bisa akses endpoint X, Y, Z
+  
+  ### Expected Result (jika sudah dikonfigurasi):
+  ```json
+  {
+    "httpCode": 200,
+    "data": [
+      {
+        "id": "019abcde-1234-5678-9abc-def012345678",
+        "roleName": "SUPERVISOR",
+        "serviceName": "master-data",
+        "httpMethod": "POST",
+        "httpEndpoint": "/api/v1/master-data/business-parties/getAll",
+        "description": "View all business parties",
+        "isActive": true,
+        "createdBy": "admin",
+        "createdAt": "2026-08-15T10:30:00Z"
+      },
+      {
+        "id": "019abcde-1234-5678-9abc-def012345679",
+        "roleName": "SUPERVISOR",
+        "serviceName": "master-data",
+        "httpMethod": "POST",
+        "httpEndpoint": "/api/v1/master-data/business-parties/save",
+        "description": "Create business party",
+        "isActive": true,
+        "createdBy": "admin",
+        "createdAt": "2026-08-15T10:30:00Z"
+      }
+    ]
+  }
+  ```
+  
+  ### Expected Result (jika belum dikonfigurasi):
+  ```json
+  {
+    "httpCode": 200,
+    "data": []
+  }
+  ```
+  
+  **Jika data kosong** → Test harus SKIP dengan reason "Role-to-endpoint mapping not configured"
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor Template — Polaris WMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--clr-active:#001871;--clr-label:#1f2b59;--clr-icon:#485885;--clr-placeholder:#949eb8;--clr-inactive:#a9b1c6;--clr-bg:#f1f3f8;--clr-bg-peek:#dee1ed;--clr-success:#55bf59;--clr-danger:#ef3340;--clr-warning:#f59e0b;--clr-border:#ebebeb;--clr-white:#fff;--clr-dynamic:rgba(33,150,243,.12);--clr-dynamic-border:#2196f3;--r-md:8px;--r-2xl:16px;--shadow-xs:0 1px 3px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.03);--font:'Roboto',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:14px;color:var(--clr-label);background:var(--clr-bg);line-height:1.5;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+</style>
+</head>
+<body>
+<!-- ═══ TOOLBAR HEADER ═══ -->
+<header class="editor-toolbar">
+  <div class="toolbar-left">
+    <a href="templates.html" class="back-link" id="backLink">← Kembali ke Template</a>
+    <div class="tpl-meta">
+      <label class="meta-label">Nama Template</label>
+      <input class="tpl-name-input" id="tplNameInput" value="Label Resi JNE">
+      <span class="meta-char-count" id="charCount">14/100 karakter</span>
+    </div>
+  </div>
+  <div class="toolbar-center">
+    <span class="type-badge" id="tplTypeBadge" style="display:none"></span>
+    <span class="canvas-size" id="canvasSize">100 × 150 mm</span>
+    <span class="canvas-sep">|</span>
+    <span class="canvas-margin" id="canvasMargin">Margin: 3 mm</span>
+  </div>
+  <div class="toolbar-right">
+    <button class="btn btn-secondary" onclick="location.href='#preview'">Preview</button>
+    <button class="btn btn-primary">Simpan</button>
+  </div>
+</header>
+
+<!-- ═══ EDITOR BODY (3-Panel) ═══ -->
+<div class="editor-body">
+
+  <!-- Left: Element Palette -->
+  <aside class="palette">
+    <div class="palette-title">Elemen</div>
+    <div class="palette-items">
+      <div class="palette-item" draggable="true">
+        <span class="pi-icon" style="color:#e53935">T</span>
+        <span class="pi-label">Teks Statis</span>
+      </div>
+      <div class="palette-item" draggable="true">
+        <span class="pi-icon" style="color:#1976d2">D</span>
+        <span class="pi-label">Teks Dinamis</span>
+      </div>
+      <div class="palette-item" draggable="true">
+        <span class="pi-icon" style="color:#333">║│║</span>
+        <span class="pi-label">Barcode</span>
+      </div>
+      <div class="palette-item" draggable="true">
+        <span class="pi-icon" style="color:#333">▣</span>
+        <span class="pi-label">QR Code</span>
+      </div>
+      <div class="palette-item" draggable="true">
+        <span class="pi-icon" style="color:#43a047">🖼</span>
+        <span class="pi-label">Gambar</span>
+      </div>
+      <div class="palette-item" draggable="true">
+        <span class="pi-icon" style="color:#666">──</span>
+        <span class="pi-label">Garis</span>
+      </div>
+      <div class="palette-item" draggable="true">
+        <span class="pi-icon" style="color:#666">□</span>
+        <span class="pi-label">Kotak</span>
+      </div>
+    </div>
+  </aside>
+  <!-- Center: Canvas -->
+  <div class="canvas-area" id="canvasArea">
+    <div class="canvas-wrapper" id="canvasWrapper">
+      <div class="canvas" style="width:300px;height:450px">
+        <!-- Static text element -->
+        <div class="el el-static" style="top:12px;left:12px;width:276px;height:28px;font-size:15px;font-weight:700;text-align:center;border:1px dashed #ccc">PT. TOKO JAYA MAKMUR</div>
+        <!-- Separator line -->
+        <div class="el el-line" style="top:44px;left:12px;width:276px;height:2px;background:#333"></div>
+        <!-- Static label -->
+        <div class="el el-static" style="top:52px;left:12px;width:80px;height:16px;font-size:10px;border:1px dashed #ccc">Pengirim:</div>
+        <!-- Dynamic text elements (blue highlight) -->
+        <div class="el el-dynamic selected" style="top:68px;left:12px;width:276px;height:20px">{{nama_pengirim}}</div>
+        <div class="el el-dynamic" style="top:90px;left:12px;width:276px;height:20px">{{alamat_pengirim}}</div>
+        <!-- Separator -->
+        <div class="el el-line" style="top:118px;left:12px;width:276px;height:1px;background:#ddd"></div>
+        <!-- Penerima section -->
+        <div class="el el-static" style="top:124px;left:12px;width:80px;height:16px;font-size:10px;border:1px dashed #ccc">Penerima:</div>
+        <div class="el el-dynamic" style="top:142px;left:12px;width:276px;height:20px">{{nama_penerima}}</div>
+        <div class="el el-dynamic" style="top:164px;left:12px;width:276px;height:30px">{{alamat_penerima}}</div>
+        <div class="el el-dynamic" style="top:196px;left:12px;width:180px;height:18px;font-size:10px">{{telp_penerima}}</div>
+        <!-- Barcode element -->
+        <div class="el el-barcode" style="top:230px;left:40px;width:220px;height:70px">
+          <div class="barcode-visual">║│║║│║║│║║│║║│║║│║║│║║│║║│║║│║║│</div>
+          <div class="barcode-label">{{nomor_resi}}</div>
+        </div>
+        <!-- Bottom info -->
+        <div class="el el-static" style="top:320px;left:12px;width:30px;height:16px;font-size:10px;font-weight:600;border:1px dashed #ccc">Isi:</div>
+        <div class="el el-dynamic" style="top:320px;left:44px;width:200px;height:16px;font-size:10px">{{isi_paket}}</div>
+        <div class="el el-static" style="top:340px;left:12px;width:40px;height:16px;font-size:10px;font-weight:600;border:1px dashed #ccc">Berat:</div>
+        <div class="el el-dynamic" style="top:340px;left:54px;width:80px;height:16px;font-size:10px">{{berat}}</div>
+        <div class="el el-static" style="top:340px;left:160px;width:55px;height:16px;font-size:10px;font-weight:600;border:1px dashed #ccc">Layanan:</div>
+        <div class="el el-dynamic" style="top:340px;left:218px;width:60px;height:16px;font-size:10px">{{layanan}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Properties Panel -->
+  <aside class="properties">
+    <div class="prop-title">Properti</div>
+    <div class="prop-content">
+      <div class="prop-section">
+        <div class="prop-section-label">Elemen: Teks Dinamis</div>
+        <div class="prop-fields">
+          <div class="prop-row"><label>Placeholder</label><select class="prop-input"><option>{{nama_pengirim}}</option><option>{{alamat_pengirim}}</option><option>{{nama_penerima}}</option><option>{{nomor_resi}}</option></select></div>
+          <div class="prop-row"><label>X (mm)</label><input class="prop-input" value="4" size="4"></div>
+          <div class="prop-row"><label>Y (mm)</label><input class="prop-input" value="22" size="4"></div>
+          <div class="prop-row"><label>Lebar (mm)</label><input class="prop-input" value="92" size="4"></div>
+          <div class="prop-row"><label>Tinggi (mm)</label><input class="prop-input" value="7" size="4"></div>
+          <div class="prop-row"><label>Ukuran Font</label><input class="prop-input" value="12" size="4"><span class="prop-unit">pt</span></div>
+          <div class="prop-row"><label>Ketebalan Font</label><select class="prop-input"><option>Tebal</option><option selected>Normal</option></select></div>
+          <div class="prop-row"><label>Perataan</label><select class="prop-input"><option selected>Kiri</option><option>Tengah</option><option>Kanan</option></select></div>
+          <div class="prop-row"><label>Border</label><select class="prop-input"><option selected>Putus-putus (mode edit)</option><option>Tidak ada</option><option>Solid</option></select></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+<style>
+/* ═══ TOOLBAR ═══ */
+.editor-toolbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:var(--clr-white);border-bottom:1px solid var(--clr-border);flex-shrink:0}
+.toolbar-left{display:flex;align-items:center;gap:16px}
+.back-link{font-size:12px;color:var(--clr-active);text-decoration:none;font-weight:500}
+.back-link:hover{text-decoration:underline}
+.tpl-meta{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:9px;font-weight:600;color:var(--clr-inactive);text-transform:uppercase;letter-spacing:.06em}
+.tpl-name-input{border:1px solid var(--clr-border);border-radius:var(--r-md);padding:5px 10px;font-size:13px;font-family:var(--font);color:var(--clr-label);width:200px;outline:none}
+.tpl-name-input:focus{border-color:var(--clr-active);box-shadow:0 0 0 3px rgba(0,24,113,.08)}
+.meta-char-count{font-size:9px;color:var(--clr-placeholder)}
+.toolbar-center{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--clr-icon)}
+.canvas-sep{color:var(--clr-border)}
+.toolbar-right{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:var(--r-md);font-size:13px;font-weight:500;font-family:var(--font);cursor:pointer;border:none;transition:opacity .15s,background .15s}
+.btn-primary{background:var(--clr-active);color:white}.btn-primary:hover{background:#00206d}
+.btn-secondary{background:var(--clr-bg);color:var(--clr-label);border:1px solid var(--clr-border)}.btn-secondary:hover{background:var(--clr-bg-peek)}
+
+/* ═══ EDITOR BODY ═══ */
+.editor-body{flex:1;display:flex;overflow:hidden}
+
+/* ═══ PALETTE ═══ */
+.palette{width:160px;background:var(--clr-white);border-right:1px solid var(--clr-border);padding:14px;flex-shrink:0;overflow-y:auto}
+.palette-title{font-size:13px;font-weight:700;color:var(--clr-label);margin-bottom:12px}
+.palette-items{display:flex;flex-direction:column;gap:4px}
+.palette-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--clr-border);border-radius:var(--r-md);cursor:grab;transition:background .1s,border-color .1s;user-select:none}
+.palette-item:hover{background:var(--clr-bg);border-color:var(--clr-active)}
+.palette-item:active{cursor:grabbing;opacity:.7}
+.pi-icon{font-size:14px;width:20px;text-align:center;font-weight:700;flex-shrink:0}
+.pi-label{font-size:12px;color:var(--clr-label)}
+
+/* ═══ CANVAS ═══ */
+.canvas-area{flex:1;background:#e0e0e0;display:flex;align-items:center;justify-content:center;overflow:auto;padding:24px}
+.canvas-wrapper{position:relative}
+.canvas{background:white;position:relative;box-shadow:0 4px 20px rgba(0,0,0,.12);border:1px solid #ccc}
+.el{position:absolute;font-size:12px;line-height:1.3;display:flex;align-items:center;cursor:move;transition:box-shadow .1s}
+.el-static{color:var(--clr-label);padding:2px 4px}
+.el-dynamic{background:var(--clr-dynamic);border:1px dashed var(--clr-dynamic-border);color:var(--clr-active);padding:2px 6px;font-family:var(--mono);font-size:11px;border-radius:3px}
+.el-dynamic.selected{box-shadow:0 0 0 2px var(--clr-active);border-style:solid}
+.el-line{cursor:ns-resize}
+.el-barcode{display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed #ccc;padding:6px}
+.barcode-visual{font-family:monospace;font-size:22px;letter-spacing:0;line-height:1}
+.barcode-label{font-family:var(--mono);font-size:10px;color:var(--clr-active);margin-top:4px}
+
+/* ═══ TYPE BADGE (mirrors templates.html) ═══ */
+.type-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:9999px;letter-spacing:.03em}
+.tb-grn{background:rgba(0,24,113,.1);color:#001871}.tb-gin{background:rgba(194,82,0,.1);color:#c45200}
+.tb-lpn{background:rgba(30,58,138,.1);color:#1e3a8a}.tb-ship{background:rgba(109,40,217,.1);color:#6d28d9}
+.tb-pta{background:rgba(22,101,52,.1);color:#166534}.tb-rpt{background:rgba(71,85,105,.12);color:#475569}
+
+/* ═══ NOT-APPLICABLE STATE (non-visual formats, e.g. Excel) ═══ */
+.canvas-na{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--clr-icon);text-align:center;max-width:320px}
+.canvas-na strong{color:var(--clr-label);font-size:14px}
+.canvas-na p{font-size:12px;color:var(--clr-placeholder)}
+
+/* ═══ PROPERTIES ═══ */
+.properties{width:220px;background:var(--clr-white);border-left:1px solid var(--clr-border);padding:14px;flex-shrink:0;overflow-y:auto}
+.prop-title{font-size:13px;font-weight:700;color:var(--clr-label);margin-bottom:12px}
+.prop-section{margin-bottom:14px}
+.prop-section-label{font-size:10px;font-weight:600;color:var(--clr-icon);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--clr-bg)}
+.prop-fields{display:flex;flex-direction:column;gap:6px}
+.prop-row{display:flex;align-items:center;gap:6px}
+.prop-row label{font-size:11px;color:var(--clr-placeholder);width:70px;flex-shrink:0}
+.prop-input{flex:1;border:1px solid var(--clr-border);border-radius:4px;padding:4px 6px;font-size:11px;font-family:var(--font);color:var(--clr-label);outline:none;min-width:0}
+.prop-input:focus{border-color:var(--clr-active)}
+.prop-unit{font-size:10px;color:var(--clr-placeholder)}
+</style>
+
+<script>
+const TYPE_META = {
+  GRN:               { label: 'GRN' ,               badge: 'tb-grn' },
+  GIN:               { label: 'GIN',                badge: 'tb-gin' },
+  LPN_LABEL:         { label: 'Label LPN',           badge: 'tb-lpn' },
+  PUTAWAY_LABEL:     { label: 'Label Putaway',       badge: 'tb-pta' },
+  SHIPMENT_LABEL:    { label: 'Label Pengiriman',    badge: 'tb-ship' },
+  INVENTORY_REPORT:  { label: 'Laporan Inventori',   badge: 'tb-rpt' }
+};
+const CANVAS_SIZE = {
+  PDF:   { size: '210 × 297 mm', margin: 'Margin: 15 mm' },
+  ZPL:   { size: '100 × 150 mm', margin: 'Margin: 3 mm' }
+};
+
+const params = new URLSearchParams(location.search);
+const id = params.get('id');
+
+if (id) {
+  document.getElementById('backLink').href = 'templates.html?id=' + encodeURIComponent(id);
+
+  const name = params.get('name') || '';
+  const nameInput = document.getElementById('tplNameInput');
+  nameInput.value = name;
+  document.getElementById('charCount').textContent = name.length + '/100 karakter';
+
+  const type = params.get('type');
+  if (type && TYPE_META[type]) {
+    const badge = document.getElementById('tplTypeBadge');
+    badge.textContent = TYPE_META[type].label;
+    badge.className = 'type-badge ' + TYPE_META[type].badge;
+    badge.style.display = '';
+  }
+
+  const format = params.get('format');
+  if (format === 'Excel') {
+    document.getElementById('canvasSize').style.display = 'none';
+    document.getElementById('canvasMargin').style.display = 'none';
+    document.querySelector('.canvas-sep').style.display = 'none';
+    document.getElementById('canvasArea').innerHTML =
+      '<div class="canvas-na"><strong>Editor kanvas tidak berlaku untuk format Excel</strong>' +
+      '<p>Template "' + nameInput.value.replace(/</g, '&lt;') + '" menghasilkan file XLSX — susun kolom dan filter langsung lewat Sumber Template di halaman Template Dokumen, bukan lewat kanvas visual ini.</p></div>';
+    document.querySelector('.palette').style.display = 'none';
+    document.querySelector('.properties').style.display = 'none';
+  } else if (format && CANVAS_SIZE[format]) {
+    document.getElementById('canvasSize').textContent = CANVAS_SIZE[format].size;
+    document.getElementById('canvasMargin').textContent = CANVAS_SIZE[format].margin;
+  }
+}
+</script>
+</body>
+</html>

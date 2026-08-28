@@ -1,0 +1,27 @@
+meta {
+  name: 3. Switch Context (Warehouse)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{local}}/sessions/switchContext
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-Session-Token: {{session_token}}
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "warehouseId": "019116a0-0003-7000-8000-000000000001"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

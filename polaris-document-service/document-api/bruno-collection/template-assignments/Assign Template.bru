@@ -1,0 +1,54 @@
+meta {
+  name: Assign Template
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/template-assignments/assign
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+}
+
+body:json {
+  {
+    "companyId": "",
+    "warehouseId": "018f4e3a-2222-7d4e-8f5a-6b7c8d9e0f1a",
+    "ownerId": "018f4e3a-1111-7d4e-8f5a-6b7c8d9e0f1a",
+    "templateType": "SHIPMENT_LABEL",
+    "templateId": "01a01801-a470-766d-adab-ed611975b957",
+    "effectiveFrom": "2026-09-01"
+  }
+}
+
+vars:pre-request {
+  templateId: <ganti-dengan-id-template>
+}
+
+docs {
+  Assign template ke scope tertentu (company / warehouse / owner).
+  
+  Rules:
+  - Minimal satu dari companyId, warehouseId, atau ownerId harus terisi
+  - Kombinasi composite diizinkan (misal: ownerId + warehouseId)
+  - effectiveFrom: tanggal mulai berlaku (format: YYYY-MM-DD)
+  - Unique constraint: satu assignment per scope combination + type + effectiveFrom
+  
+  Resolution chain (paling spesifik menang):
+  1. Owner + Warehouse
+  2. Owner only
+  3. Warehouse only
+  4. Company only
+  5. System default (fallback ke m_template.is_system_default = true)
+  
+  Contoh scope:
+  - Per owner: { ownerId: "xxx", warehouseId: null, companyId: null }
+  - Per warehouse: { warehouseId: "xxx", ownerId: null, companyId: null }
+  - Per owner+warehouse: { ownerId: "xxx", warehouseId: "yyy", companyId: null }
+  - Per company: { companyId: "xxx", ownerId: null, warehouseId: null }
+}

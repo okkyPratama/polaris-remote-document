@@ -1,0 +1,39 @@
+{
+  "name": "@polaris/wms",
+  "version": "0.0.1",
+  "description": "Polaris WMS - Micro-Frontend Monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build-packages-service": "cd packages/service && turbo run build",
+    "build-packages-ui": "cd packages/polaris-ui && turbo run build",
+    "build-first": "pnpm build-packages-service && pnpm build-packages-ui",
+    "build-remotes": "pnpm -r --filter @polaris/remote-* run build",
+    "build": "pnpm install && pnpm build-first && turbo run build",
+    "dev": "turbo run dev",
+    "dev:shell": "pnpm build-remotes && concurrently -k -n remotes-preview,shell -c green,blue \"pnpm -r --filter @polaris/remote-* run preview\" \"pnpm --filter @polaris/shell run dev\"",
+    "dev:admin": "pnpm --filter @polaris/remote-admin run build && concurrently -k -n admin-watch,admin-preview,shell -c yellow,green,blue \"pnpm --filter @polaris/remote-admin run build:watch\" \"pnpm --filter @polaris/remote-admin run preview\" \"pnpm --filter @polaris/shell run dev\"",
+    "dev:remote-company": "turbo run dev --filter=@polaris/remote-company",
+    "preview": "turbo run preview",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "clean": "turbo run clean",
+    "generate:remote": "node scripts/generate-remote.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^9.1.2",
+    "eslint": "^10.5.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.62.0"
+  },
+  "packageManager": "pnpm@10.11.0",
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Smart Access Service - 1",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

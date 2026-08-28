@@ -1,0 +1,36 @@
+meta {
+  name: 1. Login (Create Session)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{dev}}/auth/session
+  body: json
+  auth: bearer
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2TW5Ra2hpQnVGTU9Xc25OQUFuU1VYdGxJZ29nWGZ3UzdzcTJWdVhaN2tFIn0.eyJleHAiOjE3ODM2NTEzNTgsImlhdCI6MTc4MzY1MTA1OCwianRpIjoib25ydHJvOjZlODJjMjIzLWY1NDItNGMxYS04YmQwLTJkNTQ4MmEyYjYxMSIsImlzcyI6Imh0dHA6Ly8xMC4xOTMuMS42Mzo4MDgwL3JlYWxtcy90aXRpcGFqYSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiZjEzMWYxZC04ODFlLTRjY2MtODU1Ny04ZDc4YWI3ZGYzMzYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJwb2xhcmlzIiwic2lkIjoiNTk1YzIxMzgtM2QwMy00ZWZiLWEyMjMtZjY2YTBkOTgwOGYwIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIiwiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtdGl0aXBhamEiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoicmluaSBva3RhdmlhbmkiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJyaW5pLm9rdGF2aWFuaSIsImdpdmVuX25hbWUiOiJyaW5pIiwiZmFtaWx5X25hbWUiOiJva3RhdmlhbmkiLCJlbWFpbCI6InJpbmkub2t0YXZpYW5pQGFudGVyYWphLmlkIn0.bg-GT9PsqkzcGgcnDT2WzjpUXgTfFNz3cmzp4MGVbHmPSWD3fAa4NUUlelmPSG_P77YKZIWvFcB93fW68P7ohJOPhkCMXemvpsvDMNTLzl3Y-xzYXVeAO1iAajpl7GV0xljIqhPkr8QYsVCmkPfaTUSnRp_MtuvQ3AgntQjp7lCl_1suE7ae1LNiBHl0QzsAPkWZFO5LK2BsFunS_rrdSLR8O-3enRXPZ9vx0F12pM6V3xbfFrk19mjH-HvVjtfhgLiCRTl8pY_goxmWefrv3RiQiLwCVUzbytD-thGHe5kLgZjk4pIUFNakvKdFH5CQ1d-Ln-ofso-Fl0GrVUothg
+}
+
+body:json {
+  {}
+}
+
+script:post-response {
+  var jsonData = res.getBody();
+  if (jsonData.data && jsonData.data.data && jsonData.data.data.length > 0) {
+      bru.setVar('session_token', jsonData.data.data[0].sessionToken);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

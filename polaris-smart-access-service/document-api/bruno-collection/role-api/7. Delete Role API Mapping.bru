@@ -1,0 +1,51 @@
+meta {
+  name: 7. Delete Role API Mapping
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{local}}/admin/role-apis/delete
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": "{{roleApiId}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Delete Role API Mapping
+  
+  Soft delete a role-to-endpoint mapping (revoke access).
+  
+  ### Request Body:
+  - `id`: (required) UUID of the mapping to delete
+  
+  ### Important Notes:
+  - This is a SOFT DELETE - record is marked as deleted but not removed from database
+  - The mapping is set to isActive = false and deleted_at timestamp is recorded
+  - After deleting, API permission cache is automatically refreshed
+  - Access is IMMEDIATELY revoked - users with this role can no longer access the endpoint
+  
+  ### Use Case:
+  - Revoke specific endpoint access from a role
+  - Remove accidentally created mappings
+  - Security: immediately block access to sensitive endpoints
+  
+  ### Warning:
+  This will immediately affect all users with this role. They will receive 403 Forbidden
+  if they try to access the endpoint.
+}

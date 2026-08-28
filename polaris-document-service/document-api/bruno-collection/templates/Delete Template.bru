@@ -1,0 +1,34 @@
+meta {
+  name: Delete Template
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/v1/templates/delete
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+}
+
+body:json {
+  {
+    "id": "{{templateId}}"
+  }
+}
+
+vars:pre-request {
+  templateId: 019ff40d-b2c2-7a9a-9d8a-745385e59514
+}
+
+docs {
+  Soft delete template.
+  Template ditandai is_deleted = true.
+
+  CATATAN: Template dengan is_system_default = true tidak dapat dihapus.
+  Akan mengembalikan error jika mencoba menghapus system default template.
+}

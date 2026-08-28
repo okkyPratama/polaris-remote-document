@@ -1,0 +1,33 @@
+meta {
+  name: 1. Assign Role to User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{dev}}/admin/user-roles/save
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "userId": "019f3e10-7ec9-7229-b655-07ea15af2c8f",
+      "roleIds": ["019f3dfe-5b72-7c68-9d6a-00e4cc2b3c9c"]
+  }
+}
+
+script:post-response {
+  var jsonData = res.getBody();
+  test('Status 200', function() { expect(res.getStatus()).to.equal(200); });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

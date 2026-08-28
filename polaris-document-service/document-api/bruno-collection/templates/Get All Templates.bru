@@ -1,0 +1,56 @@
+meta {
+  name: Get All Templates
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/templates/getAll
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+  x-session-token: 01a017f1-d487-7b4e-9038-4e40e125b4b5
+  x-platform: web
+  appname: polaris
+  appversion: 1.0.0
+}
+
+body:json {
+  {
+    "filters": {
+      "and": [
+        {
+          "field": "name",
+          "operator": "like",
+          "value": "GRN"
+        }
+      ]
+    },
+    "paging": {
+      "page": 1,
+      "pageSize": 25
+    }
+  }
+}
+
+docs {
+  Mengambil daftar template dengan filter dan pagination.
+  
+  Filter fields yang tersedia:
+  - name (like/ilike)
+  - templateCode (=, like)
+  - templateType (=, in)
+  - outputFormat (=, in)
+  - isActive (=)
+  - isSystemDefault (=)
+  - createdBy (=)
+  - createdAt (between, >=, <=)
+  - updatedAt (between, >=, <=)
+  
+  Default pageSize: 25, max: 100.
+  Response tidak menyertakan templateContent (hanya summary).
+}

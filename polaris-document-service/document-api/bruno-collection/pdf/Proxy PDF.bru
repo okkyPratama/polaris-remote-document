@@ -1,0 +1,27 @@
+meta {
+  name: Proxy PDF
+  type: http
+  seq: 3
+}
+
+get {
+ url: {{baseUrl}}/api/v1/pdf/proxyPdf?url=https://example.com/path/to/document.pdf
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+docs {
+  Proxy fetch PDF dari URL eksternal.
+  
+  Digunakan untuk bypass CORS restriction saat frontend perlu
+  menampilkan/mengunduh PDF dari domain lain.
+  
+  Query parameter:
+  - url (required): URL PDF yang akan di-proxy (harus http:// atau https://)
+  
+  Response: application/pdf (binary, streamed).
+}

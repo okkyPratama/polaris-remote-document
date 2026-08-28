@@ -1,0 +1,29 @@
+meta {
+  name: 4. Edit User-Role
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{dev}}/admin/user-roles/edit
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "{{user_role_id}}",
+      "userId": "{{user_id}}",
+      "roleId": "{{role_id}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

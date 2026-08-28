@@ -1,0 +1,60 @@
+meta {
+  name: Save Template
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/templates/save
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  ~user-username: {{username}}
+}
+
+body:json {
+  {
+    "templateCode": "test_no_header",
+    "name": "Test No Header",
+    "templateType": "GRN",
+    "outputFormat": "PDF",
+    "templateContent": "[]",
+    "isSystemDefault": false
+  }
+  
+}
+
+docs {
+  Membuat template baru.
+  
+  Template types:
+  - GRN (Good Receipt Note)
+  - GIN (Good Issue Note)
+  - LPN_LABEL
+  - PUTAWAY_LABEL
+  - SHIPMENT_LABEL
+  - INVENTORY_REPORT
+  
+  Output formats:
+  - PDF (dokumen)
+  - EXCEL (report)
+  - ZPL (thermal label printer)
+  
+  Placeholder syntax:
+  - {{field_path}} — simple substitution
+  - {{field_path | format_modifier}} — with modifier (date:DD-MM-YYYY, number:2, upper, qr, barcode128)
+  - {{#each items}}...{{/each}} — loop
+  - {{#if condition}}...{{/if}} — conditional
+  
+  pageSettingsJson: pengaturan halaman (opsional).
+  - sizeType: A4, A5, THERMAL_100x150, dll
+  - widthMm, heightMm: dimensi dalam mm
+  - marginMm: margin dalam mm
+  - orientation: PORTRAIT / LANDSCAPE
+  
+  isSystemDefault: true = platform default (tidak bisa dihapus admin).
+  Version dimulai dari 1 dan auto-increment saat templateContent berubah.
+}

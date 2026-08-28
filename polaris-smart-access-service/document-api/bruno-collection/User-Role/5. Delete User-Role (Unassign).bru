@@ -1,0 +1,28 @@
+meta {
+  name: 5. Delete User-Role (Unassign)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{local}}/admin/user-roles/delete
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "userId": "019f35b0-e991-7c11-9b39-49499caae01e",
+      "roleIds": ["019f3d5b-b21b-75a6-9b47-53d2d31ab1cb"]
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,26 @@
+meta {
+  name: 5. Delete Custom Role
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{local}}/admin/roles/delete
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "019f6f91-a4ef-752f-9f1f-2fee6bc1b375"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

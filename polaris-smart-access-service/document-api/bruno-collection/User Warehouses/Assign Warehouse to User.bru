@@ -1,0 +1,29 @@
+meta {
+  name: Assign Warehouse to User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{dev}}/user-warehouses/save
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "userId": "019f278a-22bb-7082-b754-bf88da25eef0",
+      "warehouseIds": ["warehouse-002","warehouse-003"]
+  }
+    
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

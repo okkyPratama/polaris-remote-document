@@ -1,0 +1,74 @@
+meta {
+  name: 1. Get Role Summary
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{local}}/admin/role-apis/getRoleSummary
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Get Role Summary (QA Inspection)
+  
+  Endpoint ini untuk QA melihat overview semua role dan berapa banyak endpoint yang sudah dikonfigurasi untuk setiap role.
+  
+  ### Response Fields:
+  - `roleName`: Code role (SUPER_ADMIN, SUPERVISOR, MANAGER, dll)
+  - `roleDisplayName`: Nama role yang display ke user
+  - `totalEndpoints`: Total endpoint yang dikonfigurasi (active + inactive)
+  - `activeEndpoints`: Jumlah endpoint yang aktif (isActive = true)
+  - `inactiveEndpoints`: Jumlah endpoint yang non-aktif
+  - `sampleEndpoints`: Sample 5 endpoint pertama sebagai contoh
+  
+  ### Use Case:
+  - QA check apakah role sudah dikonfigurasi sebelum run test
+  - Jika `totalEndpoints = 0` → Role belum dikonfigurasi, test harus SKIP
+  - Jika `totalEndpoints > 0` → Role sudah dikonfigurasi, test bisa jalan
+  
+  ### Expected Result:
+  ```json
+  {
+    "httpCode": 200,
+    "data": {
+      "roles": [
+        {
+          "roleName": "SUPER_ADMIN",
+          "roleDisplayName": "Super Administrator",
+          "totalEndpoints": 127,
+          "activeEndpoints": 127,
+          "inactiveEndpoints": 0,
+          "sampleEndpoints": [
+            "POST /api/v1/master-data/business-parties/getAll",
+            "POST /api/v1/master-data/business-parties/save"
+          ]
+        },
+        {
+          "roleName": "SUPERVISOR",
+          "roleDisplayName": "Supervisor",
+          "totalEndpoints": 0,
+          "activeEndpoints": 0,
+          "inactiveEndpoints": 0,
+          "sampleEndpoints": []
+        }
+      ]
+    }
+  }
+  ```
+}

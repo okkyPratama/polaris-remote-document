@@ -1,0 +1,27 @@
+meta {
+  name: Remove Warehouse from User
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{local}}/user-warehouses/delete
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "GANTI_DENGAN_ID_USER_WAREHOUSE"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

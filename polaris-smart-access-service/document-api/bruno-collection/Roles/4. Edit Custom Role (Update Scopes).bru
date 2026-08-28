@@ -1,0 +1,32 @@
+meta {
+  name: 4. Edit Custom Role (Update Scopes)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{local}}/admin/roles/edit
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "019f6a66-0f01-7977-a20c-eea2e1705fb8",
+      "name": "Operator Outbond pancoran (Updated)",
+      "description": "Updated description",
+      "scopes": [
+      ],
+      "permissionIds": ["019116a0-0003-7000-8000-000000000002"]
+      
+  }
+}
+
+settings {
+  encodeUrl: true
+}

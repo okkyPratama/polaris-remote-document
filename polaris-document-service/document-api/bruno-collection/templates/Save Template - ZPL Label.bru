@@ -1,0 +1,45 @@
+meta {
+  name: Save Template - ZPL Label
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v1/templates/save
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+}
+
+body:json {
+  {
+    "templateCode": "system_default_lpn_label",
+    "name": "LPN Label Default",
+    "templateType": "LPN_LABEL",
+    "outputFormat": "ZPL",
+    "description": "Template label LPN untuk thermal printer",
+    "templateContent": "^XA\n^FO50,50^A0N,30,30^FD{{lpn.lpn_number}}^FS\n^FO50,100^BY3^BCN,100,Y,N,N^FD{{lpn.lpn_number}}^FS\n^FO50,230^A0N,20,20^FDSKU: {{lpn.sku_code}}^FS\n^FO50,260^A0N,20,20^FDQty: {{lpn.qty}}^FS\n^XZ",
+    "pageSettingsJson": {
+      "sizeType": "THERMAL_100x150",
+      "widthMm": 100,
+      "heightMm": 150,
+      "marginMm": 5,
+      "orientation": "PORTRAIT"
+    },
+    "isSystemDefault": true
+  }
+}
+
+docs {
+  Membuat template ZPL label untuk thermal printer.
+
+  ZPL (Zebra Programming Language) digunakan untuk cetak label
+  pada printer thermal (Zebra compatible).
+
+  templateContent berisi raw ZPL commands dengan placeholder.
+  Placeholder akan di-replace saat render time.
+}

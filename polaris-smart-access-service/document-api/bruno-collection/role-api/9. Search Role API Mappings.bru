@@ -1,0 +1,115 @@
+meta {
+  name: 9. Search Role API Mappings
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{local}}/admin/role-apis/search
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "filters": {
+      "and": [
+        {
+          "field": "role_name",
+          "operator": "=",
+          "value": "SUPERVISOR"
+        },
+        {
+          "field": "is_active",
+          "operator": "=",
+          "value": true
+        }
+      ]
+    },
+    "paging": {
+      "page": 1,
+      "pageSize": 25,
+      "sortBy": "created_at",
+      "sortDirection": "desc"
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Search Role API Mappings
+  
+  Advanced search with structured filtering for role-to-endpoint mappings.
+  
+  ### Request Body Structure:
+  - `filters`: Structured filter object with "and" conditions
+  - `paging`: Pagination and sorting configuration
+  
+  ### Supported Filter Fields:
+  - `role_name`: Role code (SUPERVISOR, MANAGER, etc.)
+  - `service_name`: Service name (master-data, inventory, etc.)
+  - `http_method`: HTTP method (POST, GET, etc.)
+  - `http_endpoint`: Endpoint path (supports LIKE with %)
+  - `is_active`: Boolean (true/false)
+  
+  ### Supported Operators:
+  - `=`: Exact match
+  - `!=`: Not equal
+  - `like` or `ilike`: Case-insensitive pattern match (use % as wildcard)
+  
+  ### Example Filters:
+  
+  **Find all endpoints for SUPERVISOR role:**
+  ```json
+  {
+    "filters": {
+      "and": [
+        {"field": "role_name", "operator": "=", "value": "SUPERVISOR"}
+      ]
+    }
+  }
+  ```
+  
+  **Find all master-data endpoints:**
+  ```json
+  {
+    "filters": {
+      "and": [
+        {"field": "service_name", "operator": "=", "value": "master-data"}
+      ]
+    }
+  }
+  ```
+  
+  **Find all business-party related endpoints:**
+  ```json
+  {
+    "filters": {
+      "and": [
+        {"field": "http_endpoint", "operator": "like", "value": "%business-parties%"}
+      ]
+    }
+  }
+  ```
+  
+  **Find active endpoints for SUPERVISOR:**
+  ```json
+  {
+    "filters": {
+      "and": [
+        {"field": "role_name", "operator": "=", "value": "SUPERVISOR"},
+        {"field": "is_active", "operator": "=", "value": true}
+      ]
+    }
+  }
+  ```
+}

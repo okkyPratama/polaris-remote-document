@@ -1,0 +1,26 @@
+meta {
+  name: 5. Reactive
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{local}}/admin/users/reactive
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "{{user_id}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

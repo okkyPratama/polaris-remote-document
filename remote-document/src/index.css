@@ -1,0 +1,321 @@
+@import 'tailwindcss';
+
+/* ═══ Design tokens (Polaris WMS palette) ═══ */
+:root {
+  --clr-active: #001871;
+  --clr-label: #1f2b59;
+  --clr-icon: #485885;
+  --clr-placeholder: #949eb8;
+  --clr-inactive: #a9b1c6;
+  --clr-bg: #f1f3f8;
+  --clr-bg-peek: #dee1ed;
+  --clr-bg-soft: #d9dde6;
+  --clr-success: #55bf59;
+  --clr-danger: #ef3340;
+  --clr-warning: #f59e0b;
+  --clr-border: #ebebeb;
+  --clr-white: #fff;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-2xl: 16px;
+  --r-pill: 9999px;
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  --font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+/* ═══ Base resets ═══ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--clr-label);
+  background: var(--clr-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══ Undo Tailwind v4 Preflight conflicts ═══
+   Tailwind v4 preflight sets:
+     button { border: none; background: transparent; padding: 0; }
+   which prevents our inline styles from working correctly.
+   We reset those back so inline styles take priority.
+*/
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Ensure inline border-bottom works on tab buttons */
+button[style*="borderBottom"],
+button[style*="border-bottom"] {
+  border-style: solid !important;
+}
+
+/* ═══ Scrollbar (Polaris style) ═══ */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--clr-bg-peek);
+  border-radius: 4px;
+}
+
+/* ═══ Animations ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0.4; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ═══ Component-level fixes ═══
+   Because Tailwind v4 normalizes borders, we need explicit
+   border declarations on elements that use them decoratively.
+*/
+
+/* Filter tabs container bottom border */
+.filter-tabs-container {
+  border-bottom: 1px solid #ebebeb;
+  display: flex;
+  padding: 0 14px;
+  overflow-x: auto;
+}
+
+/* Individual tab button */
+.filter-tab {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #485885;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom: -1px;
+  font-family: inherit;
+  transition: color 0.1s;
+}
+.filter-tab:hover {
+  color: #1f2b59;
+}
+.filter-tab.active {
+  color: #001871;
+  font-weight: 600;
+  border-bottom-color: #001871;
+}
+
+/* Search input */
+.search-input {
+  width: 100%;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  padding: 7px 10px 7px 32px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #1f2b59;
+  background: white;
+  outline: none;
+}
+.search-input::placeholder {
+  color: #949eb8;
+}
+.search-input:focus {
+  border-color: #001871;
+  box-shadow: 0 0 0 3px rgba(0, 24, 113, 0.08);
+}
+
+/* Data table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table thead tr {
+  border-bottom: 2px solid #f1f3f8;
+}
+.data-table th {
+  padding: 11px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  color: #a9b1c6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: #fafbfd;
+}
+.data-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid #f1f3f8;
+  vertical-align: middle;
+  font-size: 12px;
+}
+.data-table tbody tr {
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: background 0.1s;
+}
+.data-table tbody tr:hover td {
+  background: rgba(241, 243, 248, 0.7);
+}
+.data-table tbody tr.row-selected {
+  border-left-color: #001871;
+}
+.data-table tbody tr.row-selected td {
+  background: rgba(0, 24, 113, 0.04);
+}
+
+/* Table footer */
+.table-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #f1f3f8;
+  background: #fafbfd;
+  font-size: 11px;
+  color: #a9b1c6;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  transition: opacity 0.15s, background 0.15s;
+}
+.btn-primary {
+  background: #001871;
+  color: white;
+}
+.btn-primary:hover {
+  background: #00206d;
+}
+.btn-secondary {
+  background: #f1f3f8;
+  color: #1f2b59;
+  border: 1px solid #ebebeb;
+}
+.btn-secondary:hover {
+  background: #d9dde6;
+}
+
+/* Detail panel */
+.detail-panel {
+  width: 40%;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  overflow-y: auto;
+  max-height: calc(100vh - 140px);
+  position: relative;
+  animation: slideIn 0.2s ease-out;
+}
+
+/* Panel sections */
+.panel-section {
+  border-top: 1px solid #f1f3f8;
+  padding-top: 14px;
+  margin-top: 14px;
+}
+.panel-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #a9b1c6;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+/* Field grid in detail panel */
+.field-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 6px;
+  align-items: baseline;
+}
+.field-lbl {
+  font-size: 12px;
+  color: #949eb8;
+}
+.field-val {
+  font-size: 12px;
+  color: #1f2b59;
+}
+
+/* Badge styles */
+.type-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+}
+.format-badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  background: #f1f3f8;
+  color: #485885;
+  border-radius: 6px;
+}
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+.status-dot.active {
+  background: #55bf59;
+}
+
+/* Suppress browser focus outline on draggable canvas elements */
+[data-testid="canvas-svg"] foreignObject div,
+[data-testid="canvas-svg"] foreignObject div:focus,
+[data-testid="canvas-svg"] foreignObject div:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}

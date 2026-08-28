@@ -1,0 +1,35 @@
+meta {
+  name: Crop PDF - Auto Crop
+  type: http
+  seq: 2
+}
+
+post {
+ url: {{baseUrl}}/api/v1/pdf/cropPdf
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+}
+
+body:json {
+  {
+    "url": "https://example.com/path/to/shipping-label.pdf",
+    "autoCrop": true,
+    "paddingMm": 2.0
+  }
+}
+
+docs {
+  Auto-crop PDF dari URL.
+  
+  Mendeteksi area konten pada setiap halaman dan crop whitespace secara otomatis.
+  Untuk halaman A4-like, menggunakan heuristic: content ada di 55% bagian atas.
+  
+  paddingMm: padding tambahan di semua sisi setelah crop (default 0).
+  
+  Response: application/pdf (binary).
+}

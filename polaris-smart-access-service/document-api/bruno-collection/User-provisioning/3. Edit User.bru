@@ -1,0 +1,39 @@
+meta {
+  name: 3. Edit User
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{local}}/admin/users/edit
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": "019116a0-0001-7000-8000-000000000004",
+    "username": "afrijal",
+    "email": "afrijal@anteraja.id",
+    "fullName": "afrijal",
+    "sendResetEmail": true,
+    "roleIds": [
+      "019116a0-0001-7000-8000-000000000004"
+    ],
+    "warehouseIds": [
+      "019116a0-0003-7000-8000-000000000003"
+    ],
+    "ownerIds": [],
+    "status": "INACTIVE"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

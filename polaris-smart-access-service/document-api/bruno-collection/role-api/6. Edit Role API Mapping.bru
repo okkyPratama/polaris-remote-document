@@ -1,0 +1,59 @@
+meta {
+  name: 6. Edit Role API Mapping
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{local}}/admin/role-apis/edit
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": "{{roleApiId}}",
+    "roleName": "SUPERVISOR",
+    "serviceName": "master-data",
+    "httpMethod": "POST",
+    "httpEndpoint": "/api/v1/master-data/business-parties/getAll",
+    "description": "Updated description - Allow SUPERVISOR to view all business parties",
+    "isActive": true
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Edit Role API Mapping
+  
+  Update an existing role-to-endpoint mapping.
+  
+  ### Request Body:
+  - `id`: (required) UUID of the mapping to update
+  - `roleName`: (required) Role code
+  - `serviceName`: (optional) Service name
+  - `httpMethod`: (required) HTTP method
+  - `httpEndpoint`: (required) Endpoint path
+  - `description`: (optional) Updated description
+  - `isActive`: (required) Active status
+  
+  ### Important Notes:
+  - Can change endpoint, method, description, or active status
+  - Cannot change to a different role (id + roleName must match existing)
+  - After updating, API permission cache is automatically refreshed
+  - Changes take effect immediately
+  
+  ### Common Use Cases:
+  - Update endpoint description
+  - Change endpoint path (if API changed)
+  - Temporarily disable access (set isActive to false)
+}

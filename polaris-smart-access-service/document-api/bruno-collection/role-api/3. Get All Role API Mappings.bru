@@ -1,0 +1,52 @@
+meta {
+  name: 3. Get All Role API Mappings
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{local}}/admin/role-apis/getAll
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "filters": {},
+    "paging": {
+      "page": 1,
+      "pageSize": 25,
+      "sortBy": "created_at",
+      "sortDirection": "desc"
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Get All Role API Mappings
+  
+  Retrieve all role-to-endpoint mappings with pagination and filtering.
+  
+  ### Use Case:
+  - View all endpoint mappings across all roles
+  - Filter by role name, service name, endpoint, etc
+  - Admin management of endpoint permissions
+  
+  ### Response:
+  Returns paginated list of role-API mappings with full details including:
+  - Role name
+  - HTTP method and endpoint
+  - Service name
+  - Active status
+  - Audit fields (created/updated by)
+}

@@ -1,0 +1,12 @@
+---
+# dbmate configuration for polaris-smart-access-service
+# Reference: https://github.com/amacneil/dbmate
+
+# Database driver: mysql or postgres
+driver: mysql
+
+# Migrations directory
+migrations_dir: migrations
+
+# Schema migrations table name (tracks which migrations have run)
+schema_migrations_table: _schema_migrations

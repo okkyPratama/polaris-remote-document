@@ -1,0 +1,62 @@
+meta {
+  name: 5. Save Role API Mapping
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{local}}/admin/role-apis/save
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "roleName": "SUPERVISOR",
+    "serviceName": "master-data",
+    "httpMethod": "POST",
+    "httpEndpoint": "/api/v1/master-data/business-parties/getAll",
+    "description": "Allow SUPERVISOR to view all business parties",
+    "isActive": true
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Save Role API Mapping
+  
+  Create a new role-to-endpoint mapping to grant a role access to a specific API endpoint.
+  
+  ### Request Body:
+  - `roleName`: (required) Role code (e.g., SUPERVISOR, MANAGER, OPERATOR)
+  - `serviceName`: (optional) Service name (master-data, inventory, smart-access, etc.)
+  - `httpMethod`: (required) HTTP method (POST, GET, PUT, DELETE, PATCH)
+  - `httpEndpoint`: (required) Full endpoint path (e.g., /api/v1/master-data/business-parties/getAll)
+  - `description`: (optional) Description of what this endpoint does
+  - `isActive`: (optional, default: true) Whether this mapping is active
+  
+  ### Important Notes:
+  - Role must exist and be ACTIVE
+  - Duplicate mappings (same role + method + endpoint) are rejected
+  - After creating, the API permission cache is automatically refreshed
+  - Changes take effect immediately for new requests
+  
+  ### Example Use Case:
+  Grant SUPERVISOR role access to view business parties:
+  ```json
+  {
+    "roleName": "SUPERVISOR",
+    "httpMethod": "POST",
+    "httpEndpoint": "/api/v1/master-data/business-parties/getAll"
+  }
+  ```
+}

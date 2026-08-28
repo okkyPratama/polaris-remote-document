@@ -1,0 +1,27 @@
+meta {
+  name: 5. Deactive
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{local}}/admin/users/deactivate
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": "019f5a81-9957-7558-97af-dc2924d7a70b",
+    "reason": "Karyawan resign"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

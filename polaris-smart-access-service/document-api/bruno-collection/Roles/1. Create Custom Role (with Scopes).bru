@@ -1,0 +1,36 @@
+meta {
+  name: 1. Create Custom Role (with Scopes)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{local}}/admin/roles/save
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "code": "OPERATOR_OUTBOUND_PANCORAN4",
+      "name": "Operator outbound pancoran4",
+      "description": "Operator outbound pancoran4",
+      "permissionIds": ["019116b0-0001-7000-8000-000000000001"]
+  }
+}
+
+script:post-response {
+  var jsonData = res.getBody();
+  if (jsonData.data && jsonData.data.data && jsonData.data.data.length > 0) {
+      bru.setVar('role_id', jsonData.data.data[0].id);
+  }
+}
+
+settings {
+  encodeUrl: true
+}

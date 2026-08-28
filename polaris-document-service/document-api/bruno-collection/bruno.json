@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Polaris Document Service V2",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,45 @@
+meta {
+  name: 4. Detail By ID
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{local}}/admin/role-apis/detailById
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": "{{roleApiId}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  ## Get Role API Mapping Detail by ID
+  
+  Retrieve detailed information about a specific role-to-endpoint mapping.
+  
+  ### Request Body:
+  - `id`: (required) UUID of the role-API mapping
+  
+  ### Response:
+  Returns full details of the mapping including:
+  - Role name
+  - Service name
+  - HTTP method and endpoint
+  - Description
+  - Active status
+  - Full audit trail (created/updated by, timestamps)
+}

@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["vite/client", "node", "vitest/globals"],
+    "paths": {
+      "@polaris/ui": [
+        "../../packages/polaris-ui/src/index.ts"
+      ],
+      "@polaris/service": [
+        "../../packages/service/src/index.ts"
+      ],
+      "@polaris/config": [
+        "../../packages/config/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

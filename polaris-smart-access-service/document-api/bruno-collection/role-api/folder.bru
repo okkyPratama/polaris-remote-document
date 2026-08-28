@@ -1,0 +1,46 @@
+meta {
+  name: role-api
+  type: folder
+}
+
+docs {
+  # Role API Management
+  
+  This collection contains endpoints for managing role-to-endpoint mappings (actual API authorization).
+  
+  ## Overview
+  
+  Role API mappings control which API endpoints each role can access. This is the **actual authorization** 
+  used by access-gate to allow or deny requests (different from feature-based permissions shown in UI).
+  
+  ## Key Endpoints
+  
+  ### QA Inspection (NEW):
+  1. **Get Role Summary** - Overview of all roles and their endpoint counts
+  2. **Get By Role Name** - Detailed list of endpoints for a specific role
+  
+  ### CRUD Operations:
+  3. **Get All** - List all mappings with pagination
+  4. **Detail By ID** - Get single mapping details
+  5. **Save** - Create new mapping (grant access)
+  6. **Edit** - Update existing mapping
+  7. **Delete** - Soft delete mapping (revoke access)
+  8. **Toggle Active** - Enable/disable mapping temporarily
+  9. **Search** - Advanced search with filters
+  
+  ## Important Notes
+  
+  - Changes to role-API mappings take effect **IMMEDIATELY**
+  - API permission cache is automatically refreshed after each change
+  - This is **different** from feature-based permissions (sa_m_role_permission)
+  - Feature permissions control UI, Role-API mappings control actual API access
+  
+  ## For QA Testing
+  
+  Before running permission-related test cases (TC-116 to TC-122):
+  1. Call "Get Role Summary" to check if roles are configured
+  2. If `totalEndpoints = 0`, mark test as SKIPPED (not configured yet)
+  3. Use "Get By Role Name" to verify specific endpoint access
+  
+  See: `QA_PERMISSION_INSPECTION.md` for detailed QA guide
+}

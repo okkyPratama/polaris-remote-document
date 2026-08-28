@@ -1,0 +1,27 @@
+meta {
+  name: 3. Get User-Role By ID
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{dev}}/admin/user-roles/detailById
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "{{user_role_id}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

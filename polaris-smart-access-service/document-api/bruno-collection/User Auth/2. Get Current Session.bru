@@ -1,0 +1,25 @@
+meta {
+  name: 2. Get Current Session
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{local}}/sessions/current
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-Session-Token: {{session_token}}
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {}
+}
+
+settings {
+  encodeUrl: true
+}

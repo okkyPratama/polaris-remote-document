@@ -1,0 +1,27 @@
+meta {
+  name: 5. Delete Permission
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{dev}}/admin/permissions/delete
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "950db0c9-c86b-4b0c-a843-51924ee30123"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

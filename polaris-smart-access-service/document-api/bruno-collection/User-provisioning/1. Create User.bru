@@ -1,0 +1,41 @@
+meta {
+  name: 1. Create User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{local}}/admin/users/save
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "username": "afrijal",
+    "email": "afrijal@anteraja.id",
+    "fullName": "afrijal",
+    "sendResetEmail": true,
+    "roleIds": ["019116a0-0001-7000-8000-000000000004"],
+    "warehouseIds": ["019116a0-0003-7000-8000-000000000003"],
+    "ownerIds": [],
+    "status": "INACTIVE"
+  }
+}
+
+script:post-response {
+  var jsonData = res.getBody();
+  test('Status 200', function() { expect(res.getStatus()).to.equal(200); });
+  if (jsonData.data && jsonData.data.data && jsonData.data.data.length > 0) {
+      bru.setVar('user_id', jsonData.data.data[0].id);
+  }
+}
+
+settings {
+  encodeUrl: true
+}

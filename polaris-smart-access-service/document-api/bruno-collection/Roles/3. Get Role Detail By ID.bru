@@ -1,0 +1,26 @@
+meta {
+  name: 3. Get Role Detail By ID
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{local}}/admin/roles/detailById
+  body: json
+  auth: inherit
+}
+
+headers {
+  user-username: {{username}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "id": "019116a0-0001-7000-8000-000000000001"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

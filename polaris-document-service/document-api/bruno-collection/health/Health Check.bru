@@ -1,0 +1,22 @@
+meta {
+  name: Health Check
+  type: http
+  seq: 1
+}
+
+get {
+ url: {{baseUrl}}/api/v1/health/check
+  body: none
+  auth: none
+}
+
+params:query {
+  : v1.0.0
+}
+
+headers {
+  Content-Type: application/json
+  appname: polaris
+  appversion: v1.0.0
+}
+​

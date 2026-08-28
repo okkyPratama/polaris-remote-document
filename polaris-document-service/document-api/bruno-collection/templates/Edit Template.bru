@@ -1,0 +1,42 @@
+meta {
+  name: Edit Template
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/v1/templates/edit
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+}
+
+body:json {
+  {
+    "id": "",
+    "templateCode": "test",
+    "name": "Test",
+    "templateType": "GRN",
+    "outputFormat": "PDF",
+    "templateContent": "[]",
+    "isSystemDefault": false,
+    "isActive": true
+  }
+  
+}
+
+vars:pre-request {
+  templateId: <ganti-dengan-id-template>
+}
+
+docs {
+  Update template yang sudah ada.
+  
+  Field id wajib diisi.
+  Version akan otomatis increment jika templateContent berubah.
+  Versi lama dipertahankan untuk historical regeneration.
+}

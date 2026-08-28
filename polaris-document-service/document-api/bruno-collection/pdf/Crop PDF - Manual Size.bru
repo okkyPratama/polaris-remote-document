@@ -1,0 +1,37 @@
+meta {
+  name: Crop PDF - Manual Size
+  type: http
+  seq: 1
+}
+
+post {
+ url: {{baseUrl}}/api/v1/pdf/cropPdf
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+}
+
+body:json {
+  {
+    "url": "https://example.com/path/to/shipping-label.pdf",
+    "targetWidthMm": 100,
+    "targetHeightMm": 150,
+    "autoCrop": false
+  }
+}
+
+docs {
+  Crop PDF dari URL ke ukuran tertentu.
+  
+  Mengambil PDF dari URL, lalu crop setiap halaman ke dimensi target.
+  Content di-crop dari top-left halaman (posisi umum label pengiriman).
+  
+  Response: application/pdf (binary).
+  
+  Use case: Label pengiriman marketplace (TikTokShop, Tokopedia, Shopee)
+  yang di-generate di halaman A4 tapi isi label hanya di bagian atas.
+}

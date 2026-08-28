@@ -1,0 +1,36 @@
+meta {
+  name: Get By Scope
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/template-assignments/getByScope
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  user-username: {{username}}
+}
+
+body:json {
+  {
+    "companyId": "",
+    "warehouseId": "",
+    "ownerId": "018f4e3a-9999-7d4e-8f5a-000000000000",
+    "templateType": "GRN"
+  }
+  
+}
+
+docs {
+  Mengambil semua template assignments berdasarkan scope.
+  
+  Field templateType wajib diisi.
+  Field ownerId, warehouseId, companyId bersifat opsional sebagai filter.
+  
+  Response mengembalikan daftar assignment yang cocok, diurutkan
+  berdasarkan effective_from DESC.
+}
